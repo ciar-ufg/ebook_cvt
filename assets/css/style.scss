@@ -1,0 +1,324 @@
+@charset "UTF-8";
+
+@import 'bourbon/bourbon';
+@import 'normalize';
+@import 'box-sizing-fix';
+
+
+@import url('https://fonts.googleapis.com/css?family=Dosis:400|Source+Sans+Pro:400,400i,700,700i');
+
+$fonte-corpo: 'Source Sans Pro', sans-serif;
+$fonte-titulo: 'Dosis', sans-serif;
+
+$cor1: #48a7d7; // Azul
+$cor2: #644299; // Roxo
+$cor3: #dc166c; // Vermelho
+$cor4: #f27321; // Laranja
+$cor5: #98c53c; // Verde
+$cor_fg: white;
+$cor_bg: hsl(0,0,95%);
+$cor_borda: hsl(0,0,80%);
+$cor_texto_padrao: hsl(0,0,20%);
+$cor_texto_claro: hsl(0,0,35%);
+
+
+$cores_modulos: (
+	($cor1, darken($cor1, 20%), #d5dee2),
+	($cor3, darken($cor3, 20%), #ece0e5),
+	($cor5, darken($cor5, 20%), #dbe0cf)
+);
+
+
+$breakpoints: (
+	small: 500px,
+	medium: 950px,
+	large: 1050px,
+	giant: 1600px
+);
+
+$tamanhos: (
+	small: 100%,
+	medium: 100%,
+	large: 960px,
+	giant: 1200px
+);
+
+%tamanhos_responsivos{
+	@each $name, $breakpoint in $breakpoints{
+		@media (min-width: $breakpoint){
+			width: map-get($tamanhos, $name);
+		}
+	}
+}
+
+body{
+	// background-color: white;
+	font-family: $fonte-corpo;
+	font-size: 16px;
+	line-height: 1.4;
+	color: $cor_texto_padrao;
+	overflow-x: hidden;
+
+	background-size: 6px 6px, cover;
+	background-attachment: fixed, fixed;
+	background-repeat:  repeat, no-repeat;
+	background-position: 2px 2px, 0px 0px;
+	background-image: url(../img/dot_pattern_branca.svg), -webkit-gradient(linear, left bottom, left top, from(white), to(hsl(0,0%,90%)));
+	background-image: url(../img/dot_pattern_branca.svg), linear-gradient(to top, white 0%, hsl(0,0%,90%) 100%);
+
+	@for $i from 1 through 3 {
+	 	&.modulo#{$i} {
+	 		
+	 		background-image: url(../img/dot_pattern_branca.svg), -webkit-gradient(linear, left bottom, left top, from(white), to(nth(nth($cores_modulos, $i), 3)));
+	 		background-image: url(../img/dot_pattern_branca.svg), linear-gradient(to top, white 0%,nth(nth($cores_modulos, $i), 3)  100%);
+	 	}
+	 } 
+	
+}
+
+ main > *{
+	@extend %tamanhos_responsivos;
+}
+
+#cabecalho{
+	width: 100%;
+	background-color: $cor_fg;
+	padding: 24px;
+	@include display(flex);
+	@include justify-content(space-between);
+	@include align-items(center);
+	z-index: 2;
+	position: relative;
+	a{
+		display: block;
+		&.logocurso{
+			img{
+				width: 400px;
+			}
+		}
+
+		&.logociar{
+			img{
+				width: 150px;
+				&.responsive{
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+#navpaginas, #navpaginas-fixo{
+	width: 100%;
+	font-size: 0.9em;
+	@include display(flex);
+	@include align-items(stretch);
+	box-shadow: 0px 4px 4px rgba(0,0,0,0.4);
+	z-index: 3;
+	position: relative;
+
+	a{
+		@include user-select(none);
+		@include flex-grow(1);
+		background-color: $cor_fg;
+		// border: 1px solid $cor_borda;
+		@include transition(all 0.1s linear);
+		@include transition-property(color);
+		padding: 17px 12px;
+		@include display(flex);
+		@include align-items(center);
+		@include justify-content(center);
+		position: relative;
+		text-decoration: none;
+		color: $cor_texto_padrao;
+		& > *{
+			vertical-align: bottom;
+		}
+
+		&:before{
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 5px;
+			@include transition(height 0.1s ease-in-out);
+			width: 100%;
+			background-color: hsl(0, 0%, 30%);
+			z-index: 1;
+		}
+
+		&:not(.atual):hover, &.atual{
+			color: white;
+			&:before{
+				height: 100%;
+			}
+		}
+
+		&.atual{
+			pointer-events: none;
+		}
+
+		// margin-left: 1em;
+		&:first-child{
+			margin-left: 0;
+		}
+
+		span{
+			z-index: 2;
+		}
+
+		&.index{
+			@include flex-grow(1);
+			// padding-left: 0;
+			// padding-right: 0;
+			img{
+				z-index: 2;
+				height: 2em;
+				@include transition(opacity 0.1s linear);
+				&.hover{
+					opacity: 0;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					@include transform(translate(-50%, -50%));
+				}
+			}
+			&:not(.atual):hover, &.atual{
+				img{
+					opacity: 0;
+					&.hover{
+						opacity: 1;
+					}
+				}
+			}	
+		}
+
+		&.ficha-tecnica{
+
+		}
+
+		&.modulo{
+			@include flex-grow(5);
+
+			padding: 17px 12px 12px;
+			span{
+				&.numero{
+					font-size: 2em;
+					font-weight: bold;
+					padding-right: 0.5em;
+				}
+			}
+
+			
+
+			&.m1{
+				&:before{
+					background-color: nth(nth($cores_modulos, 1), 1);
+				}
+			};
+			&.m2{
+				&:before{
+					background-color: nth(nth($cores_modulos, 2), 1);
+				}
+			};
+			&.m3{
+				&:before{
+					background-color: nth(nth($cores_modulos, 3), 1);
+				}
+			};
+		}
+	}
+}
+
+#navpaginas-fixo{
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	@include transform(translateY(-110%));
+	@include transition(transform 0.2s ease-in-out);
+	box-shadow: 0px 2px 2px rgba(0,0,0,0.4);
+
+	&.dn{
+		display: none;
+	}
+	&.visivel{
+		@include transform(translateY(0%));
+
+	}
+}
+
+$nome-cores: 'azul', 'vermelho', 'verde';
+
+main{
+	padding-top: 5em;
+	width: 100%;
+	@include display(flex);
+	@include flex-direction(column);
+	@include align-items(center);
+	position: relative;
+	z-index: 1;
+	&:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 30em;
+		background-image: url(../img/dot_pattern.svg), url(../img/bg_neutro.jpg);
+		background-size: 4px 4px, cover;
+		background-attachment: scroll, fixed;
+		background-repeat:  repeat, no-repeat;
+		background-position: 2px 2px, 0px 0px;
+		z-index: -1;
+	}
+
+	@each $cor in $nome-cores{
+		$i: index($nome-cores, $cor);
+		body.modulo#{$i} &:before{
+			background-image: url(../img/dot_pattern.svg), url(../img/bg_#{$cor}.jpg);
+		}
+	}
+
+	article.container{
+		width: 1200px;
+		@include display(flex);
+		@include align-items(flex-start);
+		z-index: -1;
+		h1{
+			position: relative;
+			width: 30%;
+			font-family: $fonte-titulo;
+			font-size: 2em;
+			font-weight: normal;
+			text-align: right;
+			margin: 0;
+			margin-right: 1em;
+			color: white;
+			padding-bottom: 1em;
+			text-shadow: 0px 2px 3px rgba(0,0,0,0.8);
+			span{
+
+				font-size: 4em;
+				line-height: 1;
+				display: block;
+			}
+
+			&.sem-numero{
+				font-size: 2.5em;
+			}
+		}
+		@import 'texto';
+		section.conteudo{
+			@include flex-shrink(0);
+			width: 70%;
+			padding: 2em 4em 6em;
+			background-color: white;
+			z-index: 2;
+			box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+			
+			@extend %estilo_texto;
+		}
+	}
+}
+
