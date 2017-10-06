@@ -719,6 +719,7 @@ main {
       main article.container h1.sem-numero {
         font-size: 2.5em; }
     main article.container section.conteudo {
+      text-align: justify;
       hyphenate: hyphen;
       font-size: 16px;
       line-height: 1.6; }
@@ -730,18 +731,21 @@ main {
           color: #7f0d3e; }
         body.modulo3 > main article.container section.conteudo h2, body.modulo3 > main article.container section.conteudo h3 {
           color: #5c7724; }
+        main article.container section.conteudo h2:first-child, main article.container section.conteudo h3:first-child {
+          margin-top: 0; }
       main article.container section.conteudo h2 {
+        margin: 2em 0 0.5em;
         font-size: 2em; }
-      main article.container section.conteudo span.saiba-mais {
+      main article.container section.conteudo .saiba-mais {
         float: right;
-        background-color: grey;
-        padding: 1em 1em;
-        margin: 0.2em;
-        width: 50%;
+        background-color: #e6e6e6;
+        padding: 1.5em;
+        margin: 5px 0 1em 2em;
+        width: 60%;
         font-size: 0.9em;
-        line-height: 1.2; }
+        line-height: 1.4; }
       main article.container section.conteudo table {
-        margin: 2em 0;
+        margin: 3em 0;
         font-size: 0.9em;
         text-align: left;
         width: 100%;
@@ -757,6 +761,8 @@ main {
           padding: 0.4em 0.8em; }
           main article.container section.conteudo table th:last-child, main article.container section.conteudo table td:last-child {
             border-right-width: 0; }
+        main article.container section.conteudo table thead th {
+          padding: 0.6em 0.8em; }
         main article.container section.conteudo table caption {
           margin-top: 0.5em;
           caption-side: bottom;
@@ -767,7 +773,47 @@ main {
         margin-top: 0.5em; }
       main article.container section.conteudo blockquote {
         font-size: 0.9em;
-        padding-left: 2em; }
+        padding-left: 3em;
+        margin-left: 0;
+        margin-right: 0; }
+      main article.container section.conteudo figure {
+        width: 100%;
+        margin: 2em 0;
+        display: -webkit-box;
+        display: -moz-box;
+        display: box;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        box-orient: vertical;
+        -webkit-box-direction: normal;
+        -moz-box-direction: normal;
+        box-direction: normal;
+        -webkit-flex-direction: column;
+        -moz-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-direction: column;
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        box-align: center;
+        -webkit-align-items: center;
+        -moz-align-items: center;
+        -ms-align-items: center;
+        -o-align-items: center;
+        align-items: center;
+        -ms-flex-align: center;
+        -webkit-align-content: flex-start;
+        -moz-align-content: flex-start;
+        align-content: flex-start;
+        -ms-flex-line-pack: start; }
+        main article.container section.conteudo figure img {
+          width: auto;
+          height: auto;
+          max-height: 75vh;
+          max-width: 100%; }
     main article.container section.conteudo {
       -webkit-flex-shrink: 0;
       -moz-flex-shrink: 0;

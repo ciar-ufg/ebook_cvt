@@ -1,5 +1,5 @@
 %estilo_texto{
-	// text-align: justify;
+	text-align: justify;
 	hyphenate: hyphen;
 	font-size: 16px;
 	line-height: 1.6;
@@ -9,25 +9,30 @@
 		body.modulo1 > &{color: nth(nth($cores_modulos, 1), 2)}
 		body.modulo2 > &{color: nth(nth($cores_modulos, 2), 2)}
 		body.modulo3 > &{color: nth(nth($cores_modulos, 3), 2)}
+		&:first-child{
+			margin-top: 0;
+		}
 	}
 
 	h2{
+		margin: 2em 0 0.5em;
 		font-size: 2em;
+		
 	}
 
-	span.saiba-mais{
+	.saiba-mais{
 		float: right;
-		background-color: grey;
-		padding: 1em 1em;
-		margin: 0.2em;
-		width: 50%;
+		background-color: hsl(0,0%, 90%);
+		padding: 1.5em;
+		margin: 5px 0 1em 2em;
+		width: 60%;
 		font-size: 0.9em;
-		line-height: 1.2;
+		line-height: 1.4;
 		
 	}
 
 	table{
-		margin: 2em 0;
+		margin: 3em 0;
 		font-size: 0.9em;
 		text-align: left;
 		width: 100%;
@@ -47,6 +52,10 @@
 			}
 		}
 
+		thead th{
+			padding: 0.6em 0.8em;
+		}
+
 		caption{
 			margin-top: 0.5em;
 			caption-side: bottom;
@@ -64,6 +73,24 @@
 
 	blockquote{
 		font-size: 0.9em;
-		padding-left: 2em;
+		padding-left: 3em;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	figure{
+		width: 100%;
+		margin: 2em 0;
+		@include display(flex);
+		@include flex-direction(column);
+		@include align-items(center);
+		@include align-content(flex-start);
+
+		img{
+			width: auto;
+			height: auto;
+			max-height: 75vh;
+			max-width: 100%;
+		}
 	}
 }
