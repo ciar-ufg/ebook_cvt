@@ -744,7 +744,7 @@ main {
         width: 60%;
         font-size: 0.9em;
         line-height: 1.4; }
-      main article.container section.conteudo table {
+      main article.container section.conteudo > table {
         margin: 3em 0;
         font-size: 0.9em;
         text-align: left;
@@ -753,17 +753,17 @@ main {
         border: 1px solid;
         border-right-width: 0;
         border-left-width: 0; }
-        main article.container section.conteudo table th, main article.container section.conteudo table td {
+        main article.container section.conteudo > table th, main article.container section.conteudo > table td {
           margin: 0;
           border: 1px dotted #a6a6a6;
           border-top-width: 0;
           border-left-width: 0;
           padding: 0.4em 0.8em; }
-          main article.container section.conteudo table th:last-child, main article.container section.conteudo table td:last-child {
+          main article.container section.conteudo > table th:last-child, main article.container section.conteudo > table td:last-child {
             border-right-width: 0; }
-        main article.container section.conteudo table thead th {
+        main article.container section.conteudo > table thead th {
           padding: 0.6em 0.8em; }
-        main article.container section.conteudo table caption {
+        main article.container section.conteudo > table caption {
           margin-top: 0.5em;
           caption-side: bottom;
           font-size: 1em;
@@ -814,6 +814,117 @@ main {
           height: auto;
           max-height: 75vh;
           max-width: 100%; }
+      main article.container section.conteudo .timeline {
+        margin: 2em 0;
+        text-align: left;
+        font-size: 0.9em; }
+        main article.container section.conteudo .timeline .scroller {
+          width: auto;
+          white-space: nowrap;
+          overflow: visible;
+          position: relative;
+          -webkit-transition: -webkit-transform 0.2s ease-out;
+          -moz-transition: -moz-transform 0.2s ease-out;
+          transition: transform 0.2s ease-out; }
+        main article.container section.conteudo .timeline .textos {
+          overflow: hidden; }
+          main article.container section.conteudo .timeline .textos table.item {
+            font-size: 1em;
+            width: 100%;
+            display: inline-table;
+            white-space: normal;
+            vertical-align: middle;
+            margin-right: 2em;
+            opacity: 0.3;
+            -webkit-transition: all 0.2s linear;
+            -moz-transition: all 0.2s linear;
+            transition: all 0.2s linear;
+            -webkit-transition-property: opacity;
+            -moz-transition-property: opacity;
+            transition-property: opacity; }
+            main article.container section.conteudo .timeline .textos table.item.ativo {
+              opacity: 1; }
+            main article.container section.conteudo .timeline .textos table.item thead {
+              width: 100%; }
+              main article.container section.conteudo .timeline .textos table.item thead th {
+                border-bottom: 1px dotted grey;
+                padding: 0em 0.5em;
+                width: 50%; }
+                main article.container section.conteudo .timeline .textos table.item thead th:nth-child(1) {
+                  padding-right: 1em; }
+                main article.container section.conteudo .timeline .textos table.item thead th:nth-child(2) h4 {
+                  text-align: left; }
+                main article.container section.conteudo .timeline .textos table.item thead th h4 {
+                  margin: 0;
+                  font-size: 1em;
+                  color: #999999;
+                  text-align: right; }
+            main article.container section.conteudo .timeline .textos table.item tbody {
+              width: 100%; }
+              main article.container section.conteudo .timeline .textos table.item tbody td {
+                padding: 0em 0.5em 1em;
+                vertical-align: baseline;
+                width: 50%; }
+              main article.container section.conteudo .timeline .textos table.item tbody tr:last-child td {
+                padding-bottom: 0; }
+              main article.container section.conteudo .timeline .textos table.item tbody h5 {
+                margin: 0;
+                font-size: 1em;
+                font-weight: bold;
+                text-align: right;
+                color: #217098; }
+              main article.container section.conteudo .timeline .textos table.item tbody p {
+                margin: 0; }
+        main article.container section.conteudo .timeline .tempos {
+          margin-top: 1em;
+          padding: 5px 0;
+          overflow: hidden;
+          font-size: 0.9em; }
+          main article.container section.conteudo .timeline .tempos button {
+            max-width: 25%;
+            z-index: 2;
+            background-color: #f2f2f2;
+            padding: 1em;
+            position: relative;
+            vertical-align: middle;
+            border-radius: 1.5em;
+            border: 3px solid #48a7d7;
+            -webkit-transition: all 0.1s linear;
+            -moz-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+            -webkit-transition-property: background-color, color;
+            -moz-transition-property: background-color, color;
+            transition-property: background-color, color;
+            outline: none;
+            display: inline-block;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            -o-appearance: none;
+            appearance: none;
+            font-family: "Source Sans Pro", sans-serif;
+            text-align: center;
+            color: #217098;
+            white-space: normal; }
+            main article.container section.conteudo .timeline .tempos button:not(:last-child) {
+              margin-right: 2em; }
+            main article.container section.conteudo .timeline .tempos button:hover {
+              cursor: pointer; }
+            main article.container section.conteudo .timeline .tempos button.ativo {
+              background-color: #48a7d7;
+              color: white; }
+            main article.container section.conteudo .timeline .tempos button:not(:last-child):before {
+              content: '';
+              position: absolute;
+              right: calc(-2em - 3px);
+              top: 50%;
+              width: 2em;
+              border-bottom: 1px dotted black; }
+            main article.container section.conteudo .timeline .tempos button.traco-ativo:not(:last-child):before {
+              border-bottom: 3px solid #48a7d7; }
+            main article.container section.conteudo .timeline .tempos button span {
+              display: block;
+              font-size: 0.9em; }
     main article.container section.conteudo {
       -webkit-flex-shrink: 0;
       -moz-flex-shrink: 0;
