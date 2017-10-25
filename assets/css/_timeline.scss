@@ -1,0 +1,153 @@
+.timeline{
+	margin: 2em 0;
+	text-align: left;
+	font-size: 0.9em;
+
+	.scroller{
+		width: auto;
+		white-space: nowrap;
+		overflow: visible;
+		position: relative;
+		@include transition(transform 0.4s ease-out);
+	}
+	.textos{
+		overflow: hidden;
+		table.item{
+			font-size: 1em;
+			width: 100%;
+			display: inline-table;
+			white-space: normal;
+			vertical-align: top;
+			opacity: 0.3;
+			@include transition(all 0.4s linear);
+			@include transition-property(opacity);
+			&.ativo{
+				opacity: 1;
+			}
+
+			thead{
+				width: 100%;
+				th{
+					border-bottom: 1px dotted grey;
+					padding: 0em 0.5em;
+					width: 50%;
+
+					// padding-bottom: 1em;
+					&:nth-child(1){
+						// width: 50%;
+					}
+					&:nth-child(2) h4{
+						// width: 50%;
+						text-align: left;
+					}
+					h4{
+						margin: 0;
+						font-size: 1em;
+						color: hsl(0,0%,60%);
+						text-align: right;
+					}
+				}
+			}
+
+			tbody{
+				width: 100%;
+				td{
+					padding: 0em 0.5em 1em;
+					vertical-align: baseline;
+					width: 50%;
+					&:last-child{
+						// padding-right: 0;
+						// width: 50%;
+
+					}
+				}
+				tr:last-child td{
+					padding-bottom: 0;
+				}
+				h5{
+					margin: 0;
+					font-size: 1em;
+					font-weight: bold;
+					text-align: right;
+					color: nth(nth($cores_modulos, 1), 2);
+				}
+				p{
+					margin: 0;
+				}
+			}
+		}
+	}
+
+
+	.tempos{
+		padding: 5px 0 30px;
+		overflow: hidden;
+		font-size: 0.9em;
+		button{
+			max-width: 25%;
+			z-index: 2;
+			background-color: hsl(0,0%,95%);
+			padding: 1em;
+			position: relative;
+			vertical-align: middle;
+			&:not(:last-child){
+				margin-right: 2em;
+			}
+			border-radius: 1.5em;
+			border: 2px solid nth(nth($cores_modulos, 1), 1);
+			@include transition(all 0.4s linear);
+			@include transition-property(background-color, color);
+			outline: none;
+			display: inline-block;
+			@include appearance(none);
+			@include user-select(none);
+			font-family: $fonte-corpo;
+			text-align: center;
+			color: nth(nth($cores_modulos, 1), 2);
+			white-space: normal;
+			&:hover{
+				cursor: pointer;
+			}
+
+			&:not(:last-child):after{
+				content: '';
+				position: absolute;
+				right: calc(-2em - 2px);
+				top: 50%;
+				width: 2em;
+				border-bottom: 1px dotted black;
+			}
+
+			&.ativo{
+				background-color: nth(nth($cores_modulos, 1), 1);
+				color: white;
+				&:before{
+					content: '';
+					position: absolute;
+					left: 50%;
+					@include transform(translateX(-50%));
+					bottom: -15px;
+					// @include transition(bottom 0.2s ease-out);
+					height: 0;
+					width: 0;
+					z-index: -1;
+					border-left: 15px solid transparent;
+					border-right: 15px solid transparent;
+					border-top: 15px solid nth(nth($cores_modulos, 1), 1);
+				}
+				
+			}
+
+			&.traco-ativo{
+				&:not(:last-child):after{
+					border-bottom: 3px solid nth(nth($cores_modulos, 1), 1);
+				}
+			}
+
+			span{
+				display: block;
+				font-size: 0.9em;
+			}
+		}
+	}
+}

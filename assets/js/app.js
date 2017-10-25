@@ -1,4 +1,12 @@
 jQuery(document).ready(function($) {
+
+
+
+
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=   Menu ao rolar   -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+	
 	var cabecalho = $('#cabecalho');
 	var menu = $('#navpaginas');
 	var menufixo = $('#navpaginas-fixo');
@@ -17,13 +25,21 @@ jQuery(document).ready(function($) {
 			}
 		} else if (thisScroll < scrollAtual){
 			if (thisScroll > menu_top) {
-				menufixo.addClass('visivel');
+				menufixo.addClass('visivel').removeClass('dn');
 			} else{
 				menufixo.removeClass('visivel').addClass('dn');
 			}
 		}
 		scrollAtual = thisScroll;
 	});
+
+
+
+
+
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=   Timeline   -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
 	var timeline = $('.timeline');
 
@@ -71,4 +87,64 @@ jQuery(document).ready(function($) {
 
 		atualizarTempo();
 	}
+
+
+
+
+
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=   Quiz   -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+	/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+	if ($('.quiz').length > 0) {
+
+		var quiz = $('.quiz');
+		var tableRespostas = $('.resposta-quiz');
+		var arrayCondicoes = [];
+		tableRespostas.find('tbody > tr').each(function(index, el) {
+			var categoria = $(el).find('td').eq(0).text();
+			$(el).find('td').eq(1).children('p').each(function(index2, el2) {
+				arrayCondicoes.push(
+					{
+						'condicao': $(el2).text(),
+						'categoria': categoria,
+						'nCat': index
+					}
+				)
+			});
+		});
+
+		console.log(arrayCondicoes);
+
+		var nPerguntas = 10;
+		var nPerguntasPossiveis = arrayCondicoes.length;
+		var indexPerguntas = [];
+
+		while(indexPerguntas.length < nPerguntas){
+			var randomnumber = Math.floor((Math.random()*nPerguntasPossiveis));
+		    if(indexPerguntas.indexOf(randomnumber) > -1) continue;
+		    indexPerguntas.push(randomnumber);
+		}
+
+		console.log(indexPerguntas);
+
+		var bolinhasContadoras = '';
+		for (i = 1; i <= nPerguntas; i++){
+			bolinhasContadoras += '<div></div>';
+		}
+
+		quiz.find('.contador').append(bolinhasContadoras);
+	}
+
 });
+
+
+
+
+
+
+
+
+
+
+

@@ -823,9 +823,9 @@ main {
           white-space: nowrap;
           overflow: visible;
           position: relative;
-          -webkit-transition: -webkit-transform 0.2s ease-out;
-          -moz-transition: -moz-transform 0.2s ease-out;
-          transition: transform 0.2s ease-out; }
+          -webkit-transition: -webkit-transform 0.4s ease-out;
+          -moz-transition: -moz-transform 0.4s ease-out;
+          transition: transform 0.4s ease-out; }
         main article.container section.conteudo .timeline .textos {
           overflow: hidden; }
           main article.container section.conteudo .timeline .textos table.item {
@@ -833,12 +833,11 @@ main {
             width: 100%;
             display: inline-table;
             white-space: normal;
-            vertical-align: middle;
-            margin-right: 2em;
+            vertical-align: top;
             opacity: 0.3;
-            -webkit-transition: all 0.2s linear;
-            -moz-transition: all 0.2s linear;
-            transition: all 0.2s linear;
+            -webkit-transition: all 0.4s linear;
+            -moz-transition: all 0.4s linear;
+            transition: all 0.4s linear;
             -webkit-transition-property: opacity;
             -moz-transition-property: opacity;
             transition-property: opacity; }
@@ -850,8 +849,6 @@ main {
                 border-bottom: 1px dotted grey;
                 padding: 0em 0.5em;
                 width: 50%; }
-                main article.container section.conteudo .timeline .textos table.item thead th:nth-child(1) {
-                  padding-right: 1em; }
                 main article.container section.conteudo .timeline .textos table.item thead th:nth-child(2) h4 {
                   text-align: left; }
                 main article.container section.conteudo .timeline .textos table.item thead th h4 {
@@ -876,8 +873,7 @@ main {
               main article.container section.conteudo .timeline .textos table.item tbody p {
                 margin: 0; }
         main article.container section.conteudo .timeline .tempos {
-          margin-top: 1em;
-          padding: 5px 0;
+          padding: 5px 0 30px;
           overflow: hidden;
           font-size: 0.9em; }
           main article.container section.conteudo .timeline .tempos button {
@@ -888,10 +884,10 @@ main {
             position: relative;
             vertical-align: middle;
             border-radius: 1.5em;
-            border: 3px solid #48a7d7;
-            -webkit-transition: all 0.1s linear;
-            -moz-transition: all 0.1s linear;
-            transition: all 0.1s linear;
+            border: 2px solid #48a7d7;
+            -webkit-transition: all 0.4s linear;
+            -moz-transition: all 0.4s linear;
+            transition: all 0.4s linear;
             -webkit-transition-property: background-color, color;
             -moz-transition-property: background-color, color;
             transition-property: background-color, color;
@@ -902,6 +898,10 @@ main {
             -ms-appearance: none;
             -o-appearance: none;
             appearance: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
             font-family: "Source Sans Pro", sans-serif;
             text-align: center;
             color: #217098;
@@ -910,19 +910,124 @@ main {
               margin-right: 2em; }
             main article.container section.conteudo .timeline .tempos button:hover {
               cursor: pointer; }
-            main article.container section.conteudo .timeline .tempos button.ativo {
-              background-color: #48a7d7;
-              color: white; }
-            main article.container section.conteudo .timeline .tempos button:not(:last-child):before {
+            main article.container section.conteudo .timeline .tempos button:not(:last-child):after {
               content: '';
               position: absolute;
-              right: calc(-2em - 3px);
+              right: calc(-2em - 2px);
               top: 50%;
               width: 2em;
               border-bottom: 1px dotted black; }
-            main article.container section.conteudo .timeline .tempos button.traco-ativo:not(:last-child):before {
+            main article.container section.conteudo .timeline .tempos button.ativo {
+              background-color: #48a7d7;
+              color: white; }
+              main article.container section.conteudo .timeline .tempos button.ativo:before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                -webkit-transform: translateX(-50%);
+                -moz-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                -o-transform: translateX(-50%);
+                transform: translateX(-50%);
+                bottom: -15px;
+                height: 0;
+                width: 0;
+                z-index: -1;
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 15px solid #48a7d7; }
+            main article.container section.conteudo .timeline .tempos button.traco-ativo:not(:last-child):after {
               border-bottom: 3px solid #48a7d7; }
             main article.container section.conteudo .timeline .tempos button span {
+              display: block;
+              font-size: 0.9em; }
+      main article.container section.conteudo section.quiz {
+        margin: 2em 0;
+        text-align: left; }
+        main article.container section.conteudo section.quiz div.contador {
+          display: -webkit-box;
+          display: -moz-box;
+          display: box;
+          display: -webkit-flex;
+          display: -moz-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: center;
+          -moz-box-pack: center;
+          box-pack: center;
+          -webkit-justify-content: center;
+          -moz-justify-content: center;
+          -ms-justify-content: center;
+          -o-justify-content: center;
+          justify-content: center;
+          -ms-flex-pack: center;
+          margin-bottom: 1em; }
+          main article.container section.conteudo section.quiz div.contador div {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid black;
+            margin-right: 5px; }
+        main article.container section.conteudo section.quiz div.pergunta {
+          margin-bottom: 2em; }
+          main article.container section.conteudo section.quiz div.pergunta p {
+            text-align: center;
+            margin: 0; }
+            main article.container section.conteudo section.quiz div.pergunta p.texto-condicao {
+              color: #48a7d7;
+              font-size: 1.5em;
+              font-weight: bold;
+              line-height: 1.2; }
+        main article.container section.conteudo section.quiz div.alternativas {
+          font-size: 0.9em;
+          display: -webkit-box;
+          display: -moz-box;
+          display: box;
+          display: -webkit-flex;
+          display: -moz-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: distribute;
+          -moz-box-pack: distribute;
+          box-pack: distribute;
+          -webkit-justify-content: space-around;
+          -moz-justify-content: space-around;
+          -ms-justify-content: space-around;
+          -o-justify-content: space-around;
+          justify-content: space-around;
+          -ms-flex-pack: distribute;
+          -webkit-box-lines: multiple;
+          -moz-box-lines: multiple;
+          box-lines: multiple;
+          -webkit-flex-wrap: wrap;
+          -moz-flex-wrap: wrap;
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+          main article.container section.conteudo section.quiz div.alternativas button {
+            margin-bottom: 0.5em;
+            width: 40%;
+            background-color: #f2f2f2;
+            padding: 0.6em 1em;
+            position: relative;
+            border-radius: 6px;
+            border: 2px solid #48a7d7;
+            outline: none;
+            display: inline-block;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            -o-appearance: none;
+            appearance: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            font-family: "Source Sans Pro", sans-serif;
+            text-align: center;
+            color: #217098; }
+            main article.container section.conteudo section.quiz div.alternativas button:hover {
+              cursor: pointer; }
+            main article.container section.conteudo section.quiz div.alternativas button span {
               display: block;
               font-size: 0.9em; }
     main article.container section.conteudo {
