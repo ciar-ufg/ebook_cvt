@@ -98,9 +98,10 @@ jQuery(document).ready(function($) {
 
 	if ($('.quiz').length > 0) {
 
-		var quiz = $('.quiz');
+		// 1: Usar a tabela de respostas como fonte de informação pro quiz.
 		var tableRespostas = $('.resposta-quiz');
 		var arrayCondicoes = [];
+
 		tableRespostas.find('tbody > tr').each(function(index, el) {
 			var categoria = $(el).find('td').eq(0).text();
 			$(el).find('td').eq(1).children('p').each(function(index2, el2) {
@@ -116,6 +117,7 @@ jQuery(document).ready(function($) {
 
 		console.log(arrayCondicoes);
 
+		// 2: Definir quantas perguntas terão, e escolher as perguntas aleatórias. (No caso, o index delas, as perguntas em si serão resgatadas depois)
 		var nPerguntas = 10;
 		var nPerguntasPossiveis = arrayCondicoes.length;
 		var indexPerguntas = [];
@@ -128,12 +130,80 @@ jQuery(document).ready(function($) {
 
 		console.log(indexPerguntas);
 
+		var quiz = $('.quiz');
+
+		// 3: adicionar o contador  de perguntas. 
 		var bolinhasContadoras = '';
 		for (i = 1; i <= nPerguntas; i++){
 			bolinhasContadoras += '<div></div>';
 		}
-
 		quiz.find('.contador').append(bolinhasContadoras);
+
+		var bolinhas = quiz.find('.contador > div');
+		var botoesQuiz = quiz.find('.alternativas > button');
+		var perguntaAtual = 0;
+		var indexBotaoCorreto = 0;
+
+		// 4: variavel com todos os eventos animationend
+		var animationend_crossbrowser = 'animationend webkitAnimationEnd oanimationend MSAnimationEnd';
+
+		// 5: Função que define a próxima pergunta
+		var proxPergunta = function(){
+			var textosPerguntaAtual = arrayCondicoes[indexPerguntas[perguntaAtual]];
+			var textoCondicao = quiz.find('p.texto-condicao');
+			if (perguntaAtual < nPerguntas) {
+				textoCondicao.removeClass('volta some').addClass('some').on(animationend_crossbrowser, function(event) {
+					indexBotaoCorreto = parseInt(textosPerguntaAtual['nCat']);
+					bolinhas.eq(perguntaAtual).addClass('atual');
+					podeResponder = true;
+					botoesQuiz.removeAttr('disabled');
+					textoCondicao
+					.off(animationend_crossbrowser)
+					.text(textosPerguntaAtual['condicao'])
+					.removeClass('some')
+					.addClass('volta');
+				});
+			} else{
+				var qntsAcertou = bolinhas.filter('.acertou');
+
+			}
+			
+		}
+
+		proxPergunta();
+
+		var podeResponder = true;
+
+		botoesQuiz.on('click', function(event) {
+
+			event.preventDefault();
+
+			if (podeResponder === true) {
+				podeResponder = false;
+				botoesQuiz.attr('disabled', 'disabled');
+				var resultado = '';
+				if (botoesQuiz.index($(this)) === indexBotaoCorreto) {
+					$(this).addClass('acertou');
+					resultado = 'acertou';
+				} else{
+					$(this).addClass('errou');
+					botoesQuiz.eq(indexBotaoCorreto).addClass('mostrarCerto');
+					resultado = 'errou';
+
+				}
+				var timerProxPerg = setTimeout(
+					function(){
+						botoesQuiz.removeClass('errou acertou mostrarCerto')
+						bolinhas.eq(perguntaAtual).removeClass('atual').addClass(resultado);
+						perguntaAtual += 1;
+						proxPergunta();
+					},
+					1500
+				);
+			}
+			
+		});
+		
 	}
 
 });

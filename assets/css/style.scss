@@ -316,6 +316,7 @@ main{
 			background-color: white;
 			z-index: 2;
 			box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+			overflow-x: hidden;
 			
 			@extend %estilo_texto;
 		}
