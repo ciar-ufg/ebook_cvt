@@ -3,13 +3,23 @@ section.quiz{
 	$cor-acertou: darken($cor5, 5%);
 	margin: 2em 0;
 	text-align: left;
-	padding: 1em;
-	border-radius: 20px;
+	padding: 2em 0 0;
+	// border-radius: 20px;
 	box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+	position: relative;
+
+	& > *{
+		@include transition(opacity 0.2s linear);
+		&.fim{
+			opacity: 0.1;
+			pointer-events: none;
+		}
+	}
 	
 
 	div.pergunta{
 		margin-bottom: 2em;
+		padding: 0 1em;
 		p{
 			text-align: center;
 			margin: 0;
@@ -43,13 +53,13 @@ section.quiz{
 				}
 
 				&.some{
-					animation: enunSome 0.2s ease-in 0s 1 normal forwards;
+					@include animation (enunSome 0.2s ease-in 0s 1 normal forwards);
 				}
 
 				
 
 				&.volta{
-					animation: enunAparece 0.2s ease-out 0s 1 normal forwards;
+					@include animation (enunAparece 0.2s ease-out 0s 1 normal forwards);
 				}
 			}
 		}
@@ -60,7 +70,9 @@ section.quiz{
 		@include display(flex);
 		@include justify-content(space-around);
 		@include flex-wrap(wrap);
-		margin-bottom: 2em;
+		margin-bottom: 4em;
+		padding: 0 1em;
+
 		
 		button{
 			margin-bottom: 0.5em;
@@ -81,6 +93,21 @@ section.quiz{
 			text-align: center;
 			color: nth(nth($cores_modulos, 1), 2);
 			// white-space: normal;
+
+			&:after{
+				content: '';
+				position: absolute;
+				height: 20px;
+				width: 20px;
+				left: 5px;
+				top: 50%;
+				@include transform(translateY(-50%));
+				z-index: 2;
+				background-size: cover;
+				background-repeat: no-repeat;
+				opacity: 0;
+				@include transition(opacity 0.2s linear);
+			}
 
 			&[disabled]{
 				opacity: 0.3;
@@ -145,6 +172,10 @@ section.quiz{
 				color: white;
 				border-color: $cor-acertou;
 				opacity: 1;
+				&:after{
+					background-image: url(../img/icon_circle_acertou.svg);
+					opacity: 1;
+				}
 			}
 
 			&.errou{
@@ -152,62 +183,196 @@ section.quiz{
 				color: white;
 				border-color: $cor-errou;
 				opacity: 1;
+				&:after{
+					background-image: url(../img/icon_circle_errou.svg);
+					opacity: 1;
+				}
 
 			}
 
 			&.mostrarCerto{
-				// background-color: green;
-				// color: white;
-				@include animation(animMostrarCerta 1s linear 0s 1 normal forwards);
+				background-color: $cor-acertou;
+				color: white;
+				border-color: $cor-acertou;
+				@include animation(animMostrarCerta 1s linear 0s 1 normal none);
 				opacity: 1;
 			}
 		}
 	}
 
+	div.barra-progresso{
+		background-color: nth(nth($cores_modulos, 1), 2);
+		height: 6px;
+		@include transition(width 0.2s ease-out);
+		z-index: 3;
+	}
 
-	div.contador{
+	div.terminou{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		background-color: white;
 		@include display(flex);
 		@include justify-content(center);
-		div{
-			$tamanho-bolinhas: 16px;
-			width: $tamanho-bolinhas;
-			height: $tamanho-bolinhas;
-			border-radius: 50%;
-			border: 1px solid nth(nth($cores_modulos, 1), 2);
-			background-color: transparent;
-			@include transition(all 0.1s linear);
-			@include transition-property(background-color, border);
-			margin-right: $tamanho-bolinhas/2;
-			position: relative;
-			overflow: hidden;
-			&:before{
-				content: '';
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				background-size: cover;
-				background-repeat: no-repeat;
-			}
-			&.atual{
-				background-color: nth(nth($cores_modulos, 1), 2);
-			}
-			&.errou{
-				background-color: $cor-errou;
-				border-color: $cor-errou;
-				
-				&:before{
-					background-image: url(../img/icon_errado.svg)
-				}
-			}
+		@include align-items(center);
+		@include align-content(center);
+		@include flex-wrap(wrap);
+		z-index: 2;
 
-			&.acertou{
-				background-color: $cor-acertou;
-				border-color: $cor-acertou;
-				
-				&:before{
-					background-image: url(../img/icon_certo.svg)
-				}
+		&.dn{
+			display: none;
+		}
+		p{
+			font-size: 1.5em;
+			font-weight: bold;
+			text-align: center;
+			width: 100%;
+			opacity: 0;
+			span{
+				color:  nth(nth($cores_modulos, 1), 2);
 			}
 		}
+		button{
+			opacity: 0;
+			background-color: hsl(0,0%,95%);
+			padding: 0.6em 1em;
+			position: relative;
+			border-radius: 6px;
+			border: 2px solid nth(nth($cores_modulos, 1), 1);
+			@include transition(all 0.2s linear);
+			@include transition-property(background-color, color, border, opacity);
+			outline: none;
+			// display: inline-block;
+			@include appearance(none);
+			@include user-select(none);
+			font-family: $fonte-corpo;
+			text-align: center;
+			color: nth(nth($cores_modulos, 1), 2);
+			// white-space: normal;
+
+			// &:after{
+			// 	content: '';
+			// 	position: absolute;
+			// 	height: 20px;
+			// 	width: 20px;
+			// 	left: 5px;
+			// 	top: 50%;
+			// 	@include transform(translateY(-50%));
+			// 	z-index: 2;
+			// 	background-size: cover;
+			// 	background-repeat: no-repeat;
+			// 	opacity: 0;
+			// 	@include transition(opacity 0.2s linear);
+			// }
+
+			&[disabled]{
+				opacity: 0.3;
+			}
+			&:not([disabled]):hover{
+				cursor: pointer;
+				color: white;
+				background-color: nth(nth($cores_modulos, 1), 1);
+			}
+		}
+
+		@include keyframes(sobe){
+			0%{
+				@include transform(translateY(50px));
+				opacity: 0;
+			}
+
+			100%{
+				@include transform(translateY(0px));
+				opacity: 1;
+			}
+		}
+
+
+		&.mostrafilhos{
+			p,button{
+				@include animation(sobe 0.2s ease-out 0s 1 normal forwards);
+			}
+
+			button{
+				@include animation-delay(0.2s);
+			}
+		}
+	}
+
+
+	// div.contador{
+	// 	@include display(flex);
+	// 	@include justify-content(space-between);
+	// 	div{
+	// 		$tamanho-bolinhas: 6px;
+	// 		width: auto;
+	// 		@include flex-grow(1);
+	// 		height: $tamanho-bolinhas;
+	// 		border: 1px solid nth(nth($cores_modulos, 1), 2);
+	// 		background-color: transparent;
+	// 		@include transition(all 0.1s linear);
+	// 		@include transition-property(background-color, border-color);
+	// 		margin-right: $tamanho-bolinhas;
+	// 		position: relative;
+	// 		overflow: hidden;
+	// 		&:before{
+	// 			content: '';
+	// 			position: absolute;
+	// 			width: 100%;
+	// 			height: 100%;
+	// 			background-size: cover;
+	// 			background-repeat: no-repeat;
+	// 		}
+	// 		&.atual{
+	// 			background-color: nth(nth($cores_modulos, 1), 2);
+	// 		}
+	// 		&.errou{
+	// 			border-width: 2px;
+	// 			background-color: $cor-errou;
+	// 			border-color: $cor-errou;
+				
+	// 			&:before{
+	// 				background-image: url(../img/icon_errado.svg)
+	// 			}
+	// 		}
+
+	// 		&.acertou{
+	// 			border-width: 2px;
+	// 			background-color: $cor-acertou;
+	// 			border-color: $cor-acertou;
+				
+	// 			&:before{
+	// 				background-image: url(../img/icon_certo.svg)
+	// 			}
+	// 		}
+	// 	}
+	// }
+}
+
+
+table.resposta-quiz{
+	display: none;
+
+	th{
+		color: nth(nth($cores_modulos, 1), 2);
+		font-weight: bold;
+
+	}
+
+	td{
+		p{
+			margin: 0 0 0.5em;
+		}
+		&:first-child{
+			font-family: $fonte-titulo;
+			color: nth(nth($cores_modulos, 1), 2);
+			font-size: 1.2em;
+		}
+	}
+	&.visivel{
+		display: table;
 	}
 }

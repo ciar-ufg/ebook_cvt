@@ -115,7 +115,6 @@ jQuery(document).ready(function($) {
 			});
 		});
 
-		console.log(arrayCondicoes);
 
 		// 2: Definir quantas perguntas terão, e escolher as perguntas aleatórias. (No caso, o index delas, as perguntas em si serão resgatadas depois)
 		var nPerguntas = 10;
@@ -128,21 +127,32 @@ jQuery(document).ready(function($) {
 		    indexPerguntas.push(randomnumber);
 		}
 
-		console.log(indexPerguntas);
 
 		var quiz = $('.quiz');
 
-		// 3: adicionar o contador  de perguntas. 
-		var bolinhasContadoras = '';
-		for (i = 1; i <= nPerguntas; i++){
-			bolinhasContadoras += '<div></div>';
-		}
-		quiz.find('.contador').append(bolinhasContadoras);
 
-		var bolinhas = quiz.find('.contador > div');
+		// // 3: adicionar o contador  de perguntas. 
+
+
+		// @@@@@@@@@@@@@@@@@@@@@@    Abandonado por enquanto     @@@@@@@@@@@@@@@@@@@@@@
+
+		// var bolinhasContadoras = '';
+		// for (i = 1; i <= nPerguntas; i++){
+		// 	bolinhasContadoras += '<div></div>';
+		// }
+		// quiz.find('.contador').append(bolinhasContadoras);
+
+		// var bolinhas = quiz.find('.contador > div');
+
+		// @@@@@@@@@@@@@@@@@@@@@@    Abandonado por enquanto     @@@@@@@@@@@@@@@@@@@@@@
+
+
+		var progressBar = quiz.find('.barra-progresso');
+
 		var botoesQuiz = quiz.find('.alternativas > button');
 		var perguntaAtual = 0;
 		var indexBotaoCorreto = 0;
+		var qntsAcertou = 0;
 
 		// 4: variavel com todos os eventos animationend
 		var animationend_crossbrowser = 'animationend webkitAnimationEnd oanimationend MSAnimationEnd';
@@ -154,7 +164,11 @@ jQuery(document).ready(function($) {
 			if (perguntaAtual < nPerguntas) {
 				textoCondicao.removeClass('volta some').addClass('some').on(animationend_crossbrowser, function(event) {
 					indexBotaoCorreto = parseInt(textosPerguntaAtual['nCat']);
-					bolinhas.eq(perguntaAtual).addClass('atual');
+
+					// @@@@@@@@@@@@@@@@@@@@@@    Abandonado por enquanto     @@@@@@@@@@@@@@@@@@@@@@
+					// bolinhas.eq(perguntaAtual).addClass('atual'); 
+
+					progressBar.css('width', ( Math.floor( ( (perguntaAtual) /nPerguntas)*100 ) )+'%');
 					podeResponder = true;
 					botoesQuiz.removeAttr('disabled');
 					textoCondicao
@@ -164,8 +178,16 @@ jQuery(document).ready(function($) {
 					.addClass('volta');
 				});
 			} else{
-				var qntsAcertou = bolinhas.filter('.acertou');
-
+				var txtTerminou = quiz.find('.terminou');
+				txtTerminou.find('.span-total').text(nPerguntas).end().find('.span-acertos').text(qntsAcertou);
+				progressBar.css('width', '100%');
+				txtTerminou.removeClass('dn').animate({'opacity': '1'}, 600, function(){
+					txtTerminou.addClass('mostrafilhos');
+					txtTerminou.children('button').on('click', function(event) {
+						tableRespostas.addClass('visivel');
+						$('html').animate({'scrollTop': tableRespostas.offset().top}, 1000);
+					});
+				});
 			}
 			
 		}
@@ -185,6 +207,7 @@ jQuery(document).ready(function($) {
 				if (botoesQuiz.index($(this)) === indexBotaoCorreto) {
 					$(this).addClass('acertou');
 					resultado = 'acertou';
+					qntsAcertou += 1;
 				} else{
 					$(this).addClass('errou');
 					botoesQuiz.eq(indexBotaoCorreto).addClass('mostrarCerto');
@@ -194,7 +217,10 @@ jQuery(document).ready(function($) {
 				var timerProxPerg = setTimeout(
 					function(){
 						botoesQuiz.removeClass('errou acertou mostrarCerto')
-						bolinhas.eq(perguntaAtual).removeClass('atual').addClass(resultado);
+
+						// @@@@@@@@@@@@@@@@@@@@@@    Abandonado por enquanto     @@@@@@@@@@@@@@@@@@@@@@
+						// bolinhas.eq(perguntaAtual).removeClass('atual').addClass(resultado);
+
 						perguntaAtual += 1;
 						proxPergunta();
 					},
