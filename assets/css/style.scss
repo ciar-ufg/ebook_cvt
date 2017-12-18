@@ -345,6 +345,7 @@ main{
 			z-index: 2;
 			box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
 			overflow-x: hidden;
+			position: relative;
 			
 			@extend %estilo_texto;
 		}

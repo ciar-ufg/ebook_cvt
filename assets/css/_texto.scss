@@ -7,13 +7,23 @@
 	.clear-fix{
 		clear: both;
 	}
+
+	span.pagina{
+		position: absolute;
+		right: 1em;
+		font-size: 1.2em;
+		font-weight: bold;
+		text-align: center;
+		// font-family: $fonte-titulo;
+		color: rgba(0,0,0,0.3);
+	}
 	
 	h2, h3{
 		font-family: $fonte-titulo;
 		body.modulo1 > &{color: nth(nth($cores_modulos, 1), 2)}
 		body.modulo2 > &{color: nth(nth($cores_modulos, 2), 2)}
 		body.modulo3 > &{color: nth(nth($cores_modulos, 3), 2)}
-		&:first-child{
+		&:first-of-type{
 			margin-top: 0;
 		}
 	}
