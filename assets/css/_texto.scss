@@ -43,12 +43,17 @@
 		}
 	}
 
+	.print-only{
+		display: none;
+	}
+
 	a[target='blank']{
 		color: darken($cor1, 15%);
 		word-break: break-all;
 	}
 
 	.saiba-mais{
+		display: block;
 		background-color: hsl(0,0%, 90%);
 		padding: 2em;
 		font-size: 0.9em;
@@ -80,9 +85,9 @@
 		text-align: left;
 		width: 100%;
 		border-spacing: 0;
-		border: 1px solid;
-		border-right-width: 0;
-		border-left-width: 0;
+		// border: 1px solid;
+		// border-right-width: 0;
+		// border-left-width: 0;
 		th, td{
 			margin: 0;
 			border: 1px dotted hsl(0,0,65%);
@@ -95,8 +100,33 @@
 			}
 		}
 
-		thead th{
-			padding: 0.6em 0.8em;
+		tbody{
+			tr{
+				&:last-child{
+					th,td{
+						border-bottom: 1px solid $cor_texto_padrao;
+					}
+				}
+			}
+		}
+
+		thead{
+			tr{
+				&:first-child{
+					th{
+						border-top: 1px solid $cor_texto_padrao;
+					}
+				}
+
+				&:last-child{
+					th{
+						border-bottom: 1px solid $cor_texto_padrao;
+					}
+				}
+			}
+			th{
+				padding: 0.6em 0.8em;
+			}
 		}
 
 		caption{

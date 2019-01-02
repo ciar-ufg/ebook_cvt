@@ -51,14 +51,16 @@ $tamanhos: (
 	}
 }
 
-body{
-	// background-color: white;
+html{
 	font-family: $fonte-corpo;
 	font-size: 16px;
 	line-height: 1.4;
 	color: $cor_texto_padrao;
-	overflow-x: hidden;
+}
 
+body{
+	// background-color: white;
+	overflow-x: hidden;
 	background-size: 6px 6px, cover;
 	background-attachment: fixed, fixed;
 	background-repeat:  repeat, no-repeat;
@@ -348,8 +350,27 @@ main{
 			position: relative;
 			
 			@extend %estilo_texto;
+
+			.timeline-impresso{
+				display: none;
+			}
 		}
 	}
+}
+
+.ficha-catalografica {
+	margin: 2em 0;
+    @include display(flex);
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+    @include justify-content(space-between);	
+    // width: 70%;
+    // margin: 0 auto;
+
+	div p {margin-top: 0}
+	div:nth-of-type(1) {width: 100%; margin-bottom: 15px;}
+	div:nth-of-type(2) {width: 70px;}
+	div:nth-of-type(3) {width: calc(100% - 70px)}
 }
 
 
@@ -367,3 +388,55 @@ main{
 		margin: 0 20px 35px;
 	}
 }
+
+#btPrint{
+	z-index: 5;
+	position: fixed;
+	@include display(flex);
+	@include justify-content(center);
+	@include align-items(center);
+	left: 1.2rem;
+	bottom: 2.4rem;
+	@include appearance(none);
+	border: 1px solid #E5E5E5;
+	width: 3.5em;
+	height: 3.5em;
+	border-radius: 50%;
+	background-color: #fff;
+	font-family: inherit;
+	color: inherit;
+	box-shadow: 0px 4px 4px rgba(0,0,0,0.4);
+	img{
+		display: block;
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+	&:after{
+		font-size: 0.8em;
+		content: 'Imprimir / Salvar em PDF';
+		left: calc(100% + 0rem);
+		opacity: 0;
+		@include transition(all 0.3s ease-out);
+		@include transition-property(left, opacity);
+		width: 200px;
+		padding: 0.6rem;
+		position: absolute;
+		display: block;
+		background-color: #fff;
+		border: 1px solid #E5E5E5;
+		box-shadow: 0px 2px 2px rgba(0,0,0,0.2);
+	}
+	&:focus{
+		outline: none;
+	}
+	&:hover{
+		cursor: pointer;
+		&:after{
+			left: calc(100% + 1rem);
+			opacity: 1;
+		}
+	}
+}
+
+@import 'print';
+
